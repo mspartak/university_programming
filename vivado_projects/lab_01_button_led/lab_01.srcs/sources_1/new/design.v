@@ -21,19 +21,17 @@
 
 
 module top(
-    input x1,
-    input x2,
-    output y1,
-    output y2,
-    output y3,
-    output y4
+    input wire x1,
+    input wire x2,
+    output wire y1,
+    output wire y2,
+    output wire y3,
+    output wire y4
     );
     
-    reg [3:0] dummy = 0;
-    
-    assign y1 = dummy[0];
-    assign y2 = dummy[1];
-    assign y3 = dummy[2];
-    assign y4 = dummy[3];
-    
+    assign y1 = x1 | !x2;
+    assign y2 = !x1 & x2;
+    assign y3 = x1 & !x2;
+    assign y4 = x2;
+        
 endmodule

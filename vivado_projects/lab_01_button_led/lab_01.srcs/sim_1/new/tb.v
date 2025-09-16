@@ -1,4 +1,4 @@
-`timescale 1ns / 1ps
+`timescale 10ns / 1ns
 
 module tb();
 
@@ -19,7 +19,13 @@ top dut(
 
 initial begin
 
+#10 buttons = 2'b00;
+#10 buttons = 2'b01;
+#10 buttons = 2'b10;
 #10 buttons = 2'b11;
+#10 buttons = 2'b00;
+#10 buttons = 2'b10;
+#10 buttons = 2'b01;
 
 end
 
