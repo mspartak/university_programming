@@ -1,15 +1,15 @@
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
+// Company: Lviv Polytechnic National University
+// Engineer: Mankovskyy Spartak
 // 
 // Create Date: 09/14/2025 09:41:58 PM
 // Design Name: 
 // Module Name: design
-// Project Name: 
-// Target Devices: 
+// Project Name: Lab_01 : Simple truth table implementation
+// Target Devices: Cmod S7 (based on Spartan-7 FPGA)
 // Tool Versions: 
-// Description: 
+// Description: Push buttons and LEDs will be turned off and on according to given truth table.
 // 
 // Dependencies: 
 // 
