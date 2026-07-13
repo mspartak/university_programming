@@ -1,32 +1,46 @@
-`timescale 10ns / 1ns
+`timescale 1ns / 1ps  // 1 unit = 1 ns, precision = 1 ps (Crucial for Xilinx Clock Wizard!)
 
 module tb();
 
-reg [1:0] buttons;
-wire led1;
-wire led2;
-wire led3;
-wire led4;
+    // Inputs to the DUT (registers)
+    reg [1:0] buttons;
+    reg       tb_clk;
 
-top dut(
- .x1(buttons[0]),
- .x2(buttons[1]),
- .y1(led1),
- .y2(led2),
- .y3(led3),
- .y4(led4)
-);
+    // Outputs from the DUT (wires)
+    wire led1; // Maps to y1 (locked)
+    wire led2; // Maps to y2 (led_1Hz_reg)
+    wire led3; // Maps to y3 (pulse_1hz)
+    wire led4; // Maps to y4 (clk_6mhz)
 
-initial begin
+    // Instantiate the Device Under Test (DUT)
+    top dut (
+        .x1(buttons[0]),
+        .x2(buttons[1]),
+        .clk(tb_clk),
+        .y1(led1),
+        .y2(led2),
+        .y3(led3),
+        .y4(led4)
+    );
 
-#10 buttons = 2'b00;
-#10 buttons = 2'b01;
-#10 buttons = 2'b10;
-#10 buttons = 2'b11;
-#10 buttons = 2'b00;
-#10 buttons = 2'b10;
-#10 buttons = 2'b01;
-
-end
-
-endmodule 
+    // 1. 12 MHz Input Clock Generator
+    // Total period = 83.3333 ns. Half-period = 41.6667 ns.
+    initial begin
+        tb_clk = 0;
+        forever #41.6667 tb_clk = ~tb_clk;     
+    end
+  
+    // 2. Simulation Control and Stimulus Scenario
+    initial begin
+        // Initialize inputs to a clean state to avoid 'X' values
+        buttons = 2'b00;
+                 
+        // Run the simulation for 10,000 ns (10 microseconds).
+        // This provides enough time for the Clock Wizard to stabilize and lock.
+        #10000;
+        
+        $display("Simulation completed successfully.");
+        $finish; // Safely stop the simulator
+    end
+  
+endmodule
