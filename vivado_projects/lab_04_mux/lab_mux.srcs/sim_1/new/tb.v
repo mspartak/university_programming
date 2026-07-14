@@ -37,27 +37,27 @@ module tb();
         
         #56000;
         buttons = 2'b01;        
-        #100;
+        #300;
         buttons = 2'b00;
                 
         #6000;
         buttons = 2'b01;
-        #100;
+        #300;
         buttons = 2'b00;
         
         #6000;
         buttons = 2'b01;
-        #100;
+        #300;
         buttons = 2'b00;
         
         #6000;
         buttons = 2'b01;
-        #100;
+        #300;
         buttons = 2'b00;
         
         #6000;
         buttons = 2'b01;
-        #100;
+        #300;
         buttons = 2'b00;
         
     end
