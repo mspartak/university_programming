@@ -38,16 +38,9 @@ module tb();
         buttons = 2'b00;
         
         tb_reset = 1'b1;        
-        #200;
+        #800;
         tb_reset = 1'b0;
-        
-                 
-        // Run the simulation for 10,000 ns (10 microseconds).
-        // This provides enough time for the Clock Wizard to stabilize and lock.
-        #40000;
-        
-        $display("Simulation completed successfully.");
-        $finish; // Safely stop the simulator
+
     end
   
 endmodule

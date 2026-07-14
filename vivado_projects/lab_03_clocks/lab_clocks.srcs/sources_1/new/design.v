@@ -46,11 +46,15 @@ module top(
     
     // Declare internal wires
     wire clk_6mhz;      // 6 MHz output from Clock Wizard
-    wire pulse_1hz;     // Enable pulse from the divider
+    wire pulse_1;      // Pulse from the divider 1
+    wire pulse_2;      // Pulse from the divider 2
+    wire pulse_3;      // Pulse from the divider 3
     wire sync_rst;      // Safe synchronized reset for the 6MHz clock domain
     
-    // Register for the toggling LED
-    reg led_1Hz_reg = 0;
+    // Register for the toggling y-outputs
+    reg y2_reg = 0;
+    reg y3_reg = 0;
+    reg y4_reg = 0;
     
     // Connect Xilinx Clock Wizard component
     clk_wiz_0 my_clock_manager (
@@ -66,23 +70,48 @@ module top(
     assign sync_rst = reset || (!y1);
     
     // Assign internal signals to top-level outputs
-    assign y2 = led_1Hz_reg;
-    assign y3 = pulse_1hz;
-    assign y4 = clk_6mhz;
+    assign y2 = y2_reg;
+    assign y3 = y3_reg;
+    assign y4 = y4_reg;
     
-    // Instantiate the configurable divider
-    clk_divider #(.DIV_VALUE(10)) my_1hz_gen (
+    // Instantiate the configurable divider 1
+    clk_divider #(.DIV_VALUE(4)) my_divider1 (
         .clk_in(clk_6mhz),       
         .rst(sync_rst),       // Using the safe clock-domain synchronized reset
-        .clk_en(pulse_1hz)       
+        .clk_en(pulse_1)       
+    );
+    
+    // Instantiate the configurable divider 2
+    clk_divider #(.DIV_VALUE(8)) my_divider2 (
+        .clk_in(clk_6mhz),       
+        .rst(sync_rst),       // Using the safe clock-domain synchronized reset
+        .clk_en(pulse_2)       
+    );      
+   
+    // Instantiate the configurable divider 3
+    clk_divider #(.DIV_VALUE(12)) my_divider3 (
+        .clk_in(clk_6mhz),       
+        .rst(sync_rst),       // Using the safe clock-domain synchronized reset
+        .clk_en(pulse_3)       
     );   
     
     // Toggle the LED safely
     always @(posedge clk_6mhz or posedge sync_rst) begin
         if (sync_rst) begin
-            led_1Hz_reg <= 1'b0;       // Force a stable '0' state during reset/lock-time
-        end else if (pulse_1hz) begin
-            led_1Hz_reg <= ~led_1Hz_reg; // Safely toggle the LED state
+            y2_reg <= 1'b0;       // Force a stable '0' state during reset/lock-time
+            y3_reg <= 1'b0;       // Force a stable '0' state during reset/lock-time
+            y4_reg <= 1'b0;       // Force a stable '0' state during reset/lock-time
+        end else 
+        begin
+            if (pulse_1) begin           
+                y2_reg <= ~y2_reg;        // Safely toggle the LED state
+            end
+            if (pulse_2) begin           
+                y3_reg <= ~y3_reg;        // Safely toggle the LED state
+            end
+            if (pulse_3) begin           
+                y4_reg <= ~y4_reg;        // Safely toggle the LED state
+            end
         end
     end
        
