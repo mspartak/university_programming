@@ -5,7 +5,6 @@ module tb();
     // Inputs to the DUT (registers)
     reg [1:0] buttons;
     reg       tb_clk;
-    reg       tb_reset;
 
     // Outputs from the DUT (wires)
     wire led1; // Maps to y1 (locked)
@@ -14,10 +13,9 @@ module tb();
     wire led4; // Maps to y4 (clk_6mhz)
 
     // Instantiate the Device Under Test (DUT)
-    top dut (
-        .reset(tb_reset),
+    top dut (        
         .clk(tb_clk),
-        .x1(buttons[0]),
+        .x1(buttons[0]),     
         .x2(buttons[1]),        
         .y1(led1),
         .y2(led2),
@@ -36,10 +34,6 @@ module tb();
     initial begin
         // Initialize inputs to a clean state to avoid 'X' values
         buttons = 2'b00;
-        
-        tb_reset = 1'b1;        
-        #800;
-        tb_reset = 1'b0;
 
     end
   

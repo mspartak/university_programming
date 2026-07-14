@@ -34,9 +34,8 @@ endmodule
 // TOP LEVEL MODULE
 // ====================================================================
 module top(
-    input reset,        // External hardware reset pin
     input clk,          // External board reference clock
-    input wire x1,      // Unused port (kept for your future logic)
+    input wire x1,      // Unused port (kept for your future logic)   
     input wire x2,      // Unused port (kept for your future logic)   
     output wire y1,     // Clock Wizard locked status signal
     output wire y2,     // Toggling LED indicator
@@ -59,7 +58,6 @@ module top(
     // Connect Xilinx Clock Wizard component
     clk_wiz_0 my_clock_manager (
         .clk_in1  (clk),      // Input clock 12 MHz from Cmod S7 pin M9
-        .reset    (reset),    // Connected to external reset pin
         .clk_out1 (clk_6mhz), // Clock wizard output clock (6 MHz)
         .locked   (y1)        // Clock locked status signal
     );
@@ -67,7 +65,7 @@ module top(
     // CRITICAL FIX: Safe internal reset logic.
     // Logic keeps downstream modules in reset if external reset is active 
     // OR if the Clock Wizard hasn't locked/stabilized yet.
-    assign sync_rst = reset || (!y1);
+    assign sync_rst = !y1;
     
     // Assign internal signals to top-level outputs
     assign y2 = y2_reg;
