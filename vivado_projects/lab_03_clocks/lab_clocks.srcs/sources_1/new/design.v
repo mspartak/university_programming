@@ -34,50 +34,52 @@ endmodule
 // TOP LEVEL MODULE
 // ====================================================================
 module top(
-    input wire x1,
-    input wire x2,
-    input clk,
-    output wire y1,
-    output wire y2,
-    output wire y3,
-    output wire y4
+    input reset,        // External hardware reset pin
+    input clk,          // External board reference clock
+    input wire x1,      // Unused port (kept for your future logic)
+    input wire x2,      // Unused port (kept for your future logic)   
+    output wire y1,     // Clock Wizard locked status signal
+    output wire y2,     // Toggling LED indicator
+    output wire y3,     // 1 Hz clock enable pulse
+    output wire y4      // Exposed 6 MHz clock
     );
     
     // Declare internal wires
     wire clk_6mhz;      // 6 MHz output from Clock Wizard
     wire pulse_1hz;     // Enable pulse from the divider
-    wire rst_internal;  // Internal safe reset based on lock status
+    wire sync_rst;      // Safe synchronized reset for the 6MHz clock domain
     
     // Register for the toggling LED
     reg led_1Hz_reg = 0;
     
-    // Safe internal reset logic (Active-high reset while clock is NOT locked)
-    assign rst_internal = !y1; 
+    // Connect Xilinx Clock Wizard component
+    clk_wiz_0 my_clock_manager (
+        .clk_in1  (clk),      // Input clock 12 MHz from Cmod S7 pin M9
+        .reset    (reset),    // Connected to external reset pin
+        .clk_out1 (clk_6mhz), // Clock wizard output clock (6 MHz)
+        .locked   (y1)        // Clock locked status signal
+    );
+    
+    // CRITICAL FIX: Safe internal reset logic.
+    // Logic keeps downstream modules in reset if external reset is active 
+    // OR if the Clock Wizard hasn't locked/stabilized yet.
+    assign sync_rst = reset || (!y1);
     
     // Assign internal signals to top-level outputs
     assign y2 = led_1Hz_reg;
     assign y3 = pulse_1hz;
     assign y4 = clk_6mhz;
     
-    // Connect Xilinx Clock Wizard component
-    clk_wiz_0 my_clock_manager (
-        .clk_in1  (clk),      // Input clock 12 MHz from Cmod S7 pin M9
-        .reset    (1'b0),     // Hardwired reset to low level (disabled)
-        .clk_out1 (clk_6mhz), // Clock wizard output clock (6 MHz)
-        .locked   (y1)        // Clock locked status signal
-    );
-    
-    // Instantiate the configurable divider (Set to DIV_VALUE=10 for simulation testing)
-    // Note: Change 10 to 6000000 when generating Bitstream for the actual hardware!
+    // Instantiate the configurable divider
     clk_divider #(.DIV_VALUE(10)) my_1hz_gen (
         .clk_in(clk_6mhz),       
-        .rst(rst_internal),
+        .rst(sync_rst),       // Using the safe clock-domain synchronized reset
         .clk_en(pulse_1hz)       
     );   
     
-    // FIXED: Toggle the LED safely by adding reset condition to prevent 'X' states
-    always @(posedge clk_6mhz or posedge rst_internal) begin
-        if (rst_internal) begin
+    // Toggle the LED safely
+    always @(posedge clk_6mhz or posedge sync_rst) begin
+        if (sync_rst) begin
             led_1Hz_reg <= 1'b0;       // Force a stable '0' state during reset/lock-time
         end else if (pulse_1hz) begin
             led_1Hz_reg <= ~led_1Hz_reg; // Safely toggle the LED state

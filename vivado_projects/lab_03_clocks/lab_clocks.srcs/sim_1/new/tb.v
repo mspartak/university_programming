@@ -5,6 +5,7 @@ module tb();
     // Inputs to the DUT (registers)
     reg [1:0] buttons;
     reg       tb_clk;
+    reg       tb_reset;
 
     // Outputs from the DUT (wires)
     wire led1; // Maps to y1 (locked)
@@ -14,9 +15,10 @@ module tb();
 
     // Instantiate the Device Under Test (DUT)
     top dut (
-        .x1(buttons[0]),
-        .x2(buttons[1]),
+        .reset(tb_reset),
         .clk(tb_clk),
+        .x1(buttons[0]),
+        .x2(buttons[1]),        
         .y1(led1),
         .y2(led2),
         .y3(led3),
@@ -34,10 +36,15 @@ module tb();
     initial begin
         // Initialize inputs to a clean state to avoid 'X' values
         buttons = 2'b00;
+        
+        tb_reset = 1'b1;        
+        #200;
+        tb_reset = 1'b0;
+        
                  
         // Run the simulation for 10,000 ns (10 microseconds).
         // This provides enough time for the Clock Wizard to stabilize and lock.
-        #10000;
+        #40000;
         
         $display("Simulation completed successfully.");
         $finish; // Safely stop the simulator
