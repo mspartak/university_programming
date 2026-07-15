@@ -49,7 +49,7 @@ endmodule
 module top( 
     input clk,          // External board reference clock
     input wire x1,      // Unused port (kept for your future logic)   
-    input wire x2,      // Unused port (kept for your future logic)   
+    input wire x2,      // switch signal by user button click
     output wire y1,     // Clock Wizard locked status signal
     output wire y2,     // output
     output wire y3,     // output
@@ -96,6 +96,7 @@ module top(
     );
     
     // Instantiate the configurable divider 1
+    // For LED blinking set .TOGGLE_VALUE(6000000), for simulation .TOGGLE_VALUE(2)
     clk_divider #(.TOGGLE_VALUE(2)) my_divider1 (
         .clk_in(clk_6mhz),       
         .rst(sync_rst),       // Using the safe clock-domain synchronized reset
@@ -103,6 +104,7 @@ module top(
     );
     
     // Instantiate the configurable divider 2
+    // For LED blinking set .TOGGLE_VALUE(3000000), for simulation .TOGGLE_VALUE(4)
     clk_divider #(.TOGGLE_VALUE(4)) my_divider2 (
         .clk_in(clk_6mhz),       
         .rst(sync_rst),       // Using the safe clock-domain synchronized reset
@@ -125,6 +127,7 @@ module top(
 
   wire x1_pressed = x1 && !x1_past;
  
+  // To discuss why is not used "always @(posedge x1_pressed)"
   always @(posedge clk_6mhz or posedge sync_rst) begin
     if (sync_rst) begin
       switch <= 2'b00;
