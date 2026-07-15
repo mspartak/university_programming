@@ -56,6 +56,7 @@ module top(
     assign sync_rst = !y1;    
     
     // Instantiate the configurable divider 1
+    // For LED blinking set .TOGGLE_VALUE(6000000), for simulation .TOGGLE_VALUE(4)
     clk_divider #(.TOGGLE_VALUE(4)) my_divider1 (
         .clk_in(clk_6mhz),       
         .rst(sync_rst),       // Using the safe clock-domain synchronized reset
@@ -63,6 +64,7 @@ module top(
     );
     
     // Instantiate the configurable divider 2
+    // For LED blinking set .TOGGLE_VALUE(3000000), for simulation .TOGGLE_VALUE(8)
     clk_divider #(.TOGGLE_VALUE(8)) my_divider2 (
         .clk_in(clk_6mhz),       
         .rst(sync_rst),       // Using the safe clock-domain synchronized reset
