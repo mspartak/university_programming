@@ -45,8 +45,8 @@ set_property -dict { PACKAGE_PIN E2    IOSTANDARD LVCMOS33 } [get_ports { y1 }];
 
 ## Dedicated Digital I/O on the PIO Headers
 # Dummy connection of x2 and x3 yo IO pins:
-set_property -dict { PACKAGE_PIN L1    IOSTANDARD LVCMOS33 } [get_ports { x2 }]; #IO_L18N_T2_34 Sch=pio[01]
-set_property -dict { PACKAGE_PIN M4    IOSTANDARD LVCMOS33 } [get_ports { x3 }]; #IO_L19P_T3_34 Sch=pio[02]
+set_property -dict { PACKAGE_PIN L1    IOSTANDARD LVCMOS33 PULLTYPE PULLDOWN} [get_ports { x2 }]; #IO_L18N_T2_34 Sch=pio[01]
+set_property -dict { PACKAGE_PIN M4    IOSTANDARD LVCMOS33 PULLTYPE PULLDOWN} [get_ports { x3 }]; #IO_L19P_T3_34 Sch=pio[02]
 #set_property -dict { PACKAGE_PIN M3    IOSTANDARD LVCMOS33 } [get_ports { pio3 }]; #IO_L19N_T3_VREF_34 Sch=pio[03]
 #set_property -dict { PACKAGE_PIN N2    IOSTANDARD LVCMOS33 } [get_ports { pio4 }]; #IO_L20P_T3_34 Sch=pio[04]
 #set_property -dict { PACKAGE_PIN M2    IOSTANDARD LVCMOS33 } [get_ports { pio5 }]; #IO_L20N_T3_34 Sch=pio[05]
