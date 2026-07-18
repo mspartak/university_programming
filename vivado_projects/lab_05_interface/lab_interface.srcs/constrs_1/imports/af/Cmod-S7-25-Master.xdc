@@ -18,8 +18,8 @@ set_property -dict { PACKAGE_PIN D1    IOSTANDARD LVCMOS33 } [get_ports { x2 }];
 
 ## 4 LEDs
 set_property -dict { PACKAGE_PIN E2    IOSTANDARD LVCMOS33 } [get_ports { y1 }]; #IO_L8P_T1_34 Sch=led[1]
-set_property -dict { PACKAGE_PIN K1    IOSTANDARD LVCMOS33 } [get_ports { y2 }]; #IO_L16P_T2_34 Sch=led[2]
-set_property -dict { PACKAGE_PIN J1    IOSTANDARD LVCMOS33 } [get_ports { y3 }]; #IO_L16N_T2_34 Sch=led[3]
+#set_property -dict { PACKAGE_PIN K1    IOSTANDARD LVCMOS33 } [get_ports { y2 }]; #IO_L16P_T2_34 Sch=led[2]
+#set_property -dict { PACKAGE_PIN J1    IOSTANDARD LVCMOS33 } [get_ports { y3 }]; #IO_L16N_T2_34 Sch=led[3]
 set_property -dict { PACKAGE_PIN E1    IOSTANDARD LVCMOS33 } [get_ports { y4 }]; #IO_L8N_T1_34 Sch=led[4]
 
 ## Pmod Header JA
@@ -61,8 +61,8 @@ set_property -dict { PACKAGE_PIN E1    IOSTANDARD LVCMOS33 } [get_ports { y4 }];
 #set_property -dict { PACKAGE_PIN M15   IOSTANDARD LVCMOS33 } [get_ports { pio21 }]; #IO_L9N_T1_DQS_D13_14 Sch=pio[21]
 #set_property -dict { PACKAGE_PIN M14   IOSTANDARD LVCMOS33 } [get_ports { pio22 }]; #IO_L9P_T1_DQS_14 Sch=pio[22]
 #set_property -dict { PACKAGE_PIN L15   IOSTANDARD LVCMOS33 } [get_ports { pio23 }]; #IO_L4N_T0_D05_14 Sch=pio[23]
-#set_property -dict { PACKAGE_PIN L14   IOSTANDARD LVCMOS33 } [get_ports { pio26 }]; #IO_L7N_T1_D10_14 Sch=pio[26]
-#set_property -dict { PACKAGE_PIN K14   IOSTANDARD LVCMOS33 } [get_ports { pio27 }]; #IO_L4P_T0_D04_14 Sch=pio[27]
+set_property -dict { PACKAGE_PIN L14   IOSTANDARD LVCMOS33 } [get_ports { y2 }]; #IO_L7N_T1_D10_14 Sch=pio[26]
+set_property -dict { PACKAGE_PIN K14   IOSTANDARD LVCMOS33 } [get_ports { y3 }]; #IO_L4P_T0_D04_14 Sch=pio[27]
 #set_property -dict { PACKAGE_PIN J15   IOSTANDARD LVCMOS33 } [get_ports { pio28 }]; #IO_L5P_T0_D06_14 Sch=pio[28]
 #set_property -dict { PACKAGE_PIN L13   IOSTANDARD LVCMOS33 } [get_ports { pio29 }]; #IO_L7P_T1_D09_14 Sch=pio[29]
 #set_property -dict { PACKAGE_PIN M13   IOSTANDARD LVCMOS33 } [get_ports { pio30 }]; #IO_L8P_T1_D11_14 Sch=pio[30]
