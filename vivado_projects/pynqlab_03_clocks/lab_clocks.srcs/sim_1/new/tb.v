@@ -23,11 +23,11 @@ module tb();
         .y4(led4)
     );
 
-    // 1. 12 MHz Input Clock Generator
-    // Total period = 83.3333 ns. Half-period = 41.6667 ns.
+    // 1. 125 MHz Input Clock Generator
+    // Total period = 8 ns. Half-period = 4 ns.
     initial begin
         tb_clk = 0;
-        forever #41.6667 tb_clk = ~tb_clk;     
+        forever #4 tb_clk = ~tb_clk;     
     end
   
     // 2. Simulation Control and Stimulus Scenario

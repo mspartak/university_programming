@@ -4,7 +4,7 @@
 <!-- Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.                   -->
 <!-- Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.   -->
 
-<Project Product="Vivado" Version="7" Minor="70" Path="C:/DriveD/MyPrograms_Cypress/Xilinx/university_programming/vivado_projects/pynqlab_03_clocks/lab_clocks.xpr">
+<Project Product="Vivado" Version="7" Minor="70" Path="D:/MyPrograms_Cypress/Xilinx/university_programming/vivado_projects/pynqlab_03_clocks/lab_clocks.xpr">
   <DefaultLaunch Dir="$PRUNDIR"/>
   <Configuration>
     <Option Name="Id" Val="038cb36e69cc4d36a3542eeb99e641d5"/>
@@ -59,7 +59,7 @@
     <Option Name="IPStaticSourceDir" Val="$PIPUSERFILESDIR/ipstatic"/>
     <Option Name="EnableBDX" Val="FALSE"/>
     <Option Name="DSABoardId" Val="cmod-s7-25"/>
-    <Option Name="WTXSimLaunchSim" Val="118"/>
+    <Option Name="WTXSimLaunchSim" Val="119"/>
     <Option Name="WTModelSimLaunchSim" Val="0"/>
     <Option Name="WTQuestaLaunchSim" Val="0"/>
     <Option Name="WTIesLaunchSim" Val="0"/>
@@ -90,7 +90,7 @@
   <FileSets Version="1" Minor="32">
     <FileSet Name="sources_1" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1" RelGenDir="$PGENDIR/sources_1">
       <Filter Type="Srcs"/>
-      <File Path="D:/MyPrograms_Cypress/Xilinx/university_programming/vivado_projects/pynqlab_03_clocks/lab_clocks.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.xci">
+      <File Path="$PSRCDIR/sources_1/ip/clk_wiz_0/clk_wiz_0.xci">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
@@ -99,7 +99,7 @@
       </File>
       <File Path="$PSRCDIR/sources_1/imports/new/design.v">
         <FileInfo>
-          <Attr Name="ImportPath" Val="D:/MyPrograms_Cypress/Xilinx/university_programming/vivado_projects/pynqlab_03_clocks/lab_clocks.srcs/sources_1/new/design.v"/>
+          <Attr Name="ImportPath" Val="$PSRCDIR/sources_1/new/design.v"/>
           <Attr Name="ImportTime" Val="1784560921"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
@@ -116,7 +116,7 @@
       <Filter Type="Constrs"/>
       <File Path="$PSRCDIR/constrs_1/imports/imports/PYNQ-Z1_C.xdc">
         <FileInfo>
-          <Attr Name="ImportPath" Val="D:/MyPrograms_Cypress/Xilinx/university_programming/vivado_projects/pynqlab_03_clocks/lab_clocks.srcs/constrs_1/imports/PYNQ-Z1_C.xdc"/>
+          <Attr Name="ImportPath" Val="$PSRCDIR/constrs_1/imports/PYNQ-Z1_C.xdc"/>
           <Attr Name="ImportTime" Val="1784555835"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
